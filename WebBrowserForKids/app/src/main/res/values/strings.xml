@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">WebBrowserForKids</string>
+    <string name="app_name_underline"><u>WebBrowserForKids</u></string>
+    <string name="settings">Settings</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="add_website">Add Website</string>
+    <string name="search_website">Search</string>
+    <string name="curfew">Curfew:</string>
+    <string name="parent_mode">Parent Mode:</string>
+    <string name="time_limit">Time Limit (in hours):</string>
+    <string name="set_passcode">Set Parent Passcode</string>
+    <string name="enter_passcode">Enter Parent Passcode</string>
+    <string name="past_curfew">You are past your curfew.</string>
+    <string name="past_time_limit">You are past your time limit.</string>
+    <string name="unable_to_load">Unable to load: </string>
+    <string name="ask_parent">Ask a parent to access: </string>
+    <string name="set">Set</string>
+    <string name="not_set">Not Set</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="set_time_limit">Set Time Limit in hours (1-24)</string>
+    <string name="invalid_time_limit">Invalid time limit - should be between 1 and 24.</string>
+    <string name="passcode_incorrect">Passcode was incorrect.</string>
+    <string name="website_unsafe">This website is listed as unsafe by Google Safe Browsing API.</string>
+    <string name="web_browser_for_kids">Web Browser For Kids</string>
+    <string name="delete_website">Delete Website</string>
+    <string name="set_parent_mode_checkbox">Set Parent Mode Checkbox</string>
+    <string name="website_available">The website added is available.</string>
+    <string name="website_unavailable">The website added is unavailable.</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="time_left">Time Left: </string>
+</resources>

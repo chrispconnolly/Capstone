@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_settings"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:divider="?android:dividerHorizontal"
+    android:showDividers="middle"
+    tools:context="com.example.chrispconnolly.webbrowserforkids.SettingsActivity">
+
+    <ListView
+        android:id="@+id/websiteListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/add_websites_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:onClick="addWebsite"
+            android:contentDescription="@string/add_website"
+            android:text="@string/add_website" />
+
+    <TextView
+        android:id="@+id/curfew_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:contentDescription="@string/curfew"
+        android:text="@string/curfew"
+        android:onClick="setCurfew"/>
+
+    <TextView
+        android:id="@+id/timelimit_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:contentDescription="@string/set_time_limit"
+        android:text="@string/time_limit"
+        android:onClick="setTimeLimit"/>
+
+    <TextView
+        android:id="@+id/set_passcode_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:onClick="setPasscode"
+        android:contentDescription="@string/set_passcode"
+        android:text="@string/set_passcode" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:contentDescription="@string/parent_mode"
+            android:text="@string/parent_mode"/>
+        <CheckBox
+            android:id="@+id/parentMode_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/set_parent_mode_checkbox"
+            android:onClick="toggleParentMode"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id"
+            />
+    </RelativeLayout>
+    <WebView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/webview"
+        android:visibility="gone"/>
+</LinearLayout>
