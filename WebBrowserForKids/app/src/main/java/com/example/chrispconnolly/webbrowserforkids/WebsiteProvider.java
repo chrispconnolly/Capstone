@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.net.Uri;
 
 public class WebsiteProvider extends ContentProvider {
@@ -14,6 +15,9 @@ public class WebsiteProvider extends ContentProvider {
 
     public WebsiteProvider(Context context){
         mWebsiteSpHelper = new WebsiteSpHelper(context);
+    }
+
+    public WebsiteProvider(){
     }
 
     @Override
@@ -69,7 +73,11 @@ public class WebsiteProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-        return null;
+        if(mWebsiteSpHelper == null)
+            mWebsiteSpHelper = new WebsiteSpHelper(getContext());
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"urls"});
+        matrixCursor.addRow(new String[]{mWebsiteSpHelper.getWebsites()});
+        return matrixCursor;
     }
 
     static UriMatcher buildUriMatcher() {
@@ -77,6 +85,8 @@ public class WebsiteProvider extends ContentProvider {
         final String authority = WebsiteContract.CONTENT_AUTHORITY;
 
         matcher.addURI(authority, WebsiteContract.PATH_WEBSITE, WEBSITE);
+        matcher.addURI("content://com.example.chrispconnolly.webbrowserforkids", "websites", 100);
+        matcher.addURI("com.example.chrispconnolly.webbrowserforkids", "websites", 100);
         return matcher;
     }
 }

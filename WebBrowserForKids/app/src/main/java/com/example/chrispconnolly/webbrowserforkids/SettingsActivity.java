@@ -1,14 +1,16 @@
 package com.example.chrispconnolly.webbrowserforkids;
 
+import android.app.LoaderManager;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -44,7 +46,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class SettingsActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.OnConnectionFailedListener, LoaderManager.LoaderCallbacks<Cursor> {
     ListView mWebsiteListView;
     String[] mWebsites;
     TextView mAddWebsitesView, mCurfewTextView, mTimeLimitTextView, mPasscodeTextView;
@@ -59,6 +61,7 @@ public class SettingsActivity extends AppCompatActivity implements GoogleApiClie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        getLoaderManager().initLoader(0, null, this);
 
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -88,12 +91,6 @@ public class SettingsActivity extends AppCompatActivity implements GoogleApiClie
     }
 
     private void refreshViews(){
-        String websites = mWebsiteLoader.load();
-        if(websites != null) {
-            mWebsites = websites.isEmpty() ? new String[]{} : websites.split(",");
-            mWebsiteListView.setAdapter(new WebSiteAdapter(mWebsites));
-        }
-
         mCurfewTextView.setText(getString(R.string.curfew) + " " +  mWebsiteSpHelper.getCurfew());
         mTimeLimitTextView.setText(getString(R.string.time_limit) + " " + mWebsiteSpHelper.getTimeLimit());
         String passCodeMask = (mWebsiteSpHelper.getParentPasscode() == null) ? getString(R.string.not_set) : getString(R.string.set);
@@ -105,6 +102,12 @@ public class SettingsActivity extends AppCompatActivity implements GoogleApiClie
         mTimeLimitTextView.setEnabled(parentMode);
         mParentModeCheckBox.setChecked(parentMode);
         mPasscodeTextView.setEnabled(parentMode || mWebsiteSpHelper.getParentPasscode() == null);
+
+        String websites = mWebsiteSpHelper.getWebsites();
+        if(websites != null) {
+            mWebsites = websites.isEmpty() ? new String[]{} : websites.split(",");
+            mWebsiteListView.setAdapter(new WebSiteAdapter(mWebsites));
+        }
     }
 
     public void addWebsite(View view){
@@ -259,6 +262,28 @@ public class SettingsActivity extends AppCompatActivity implements GoogleApiClie
 
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
+        return new WebsiteLoader(this);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        String websites = "";
+        if(cursor.getCount() > 0){
+            cursor.moveToPosition(0);
+            websites = cursor.getString(0);
+        }
+        if(websites != null) {
+            mWebsites = websites.isEmpty() ? new String[]{} : websites.split(",");
+            mWebsiteListView.setAdapter(new WebSiteAdapter(mWebsites));
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+    }
+
     private class WebSiteAdapter extends BaseAdapter {
         String [] mWebsites;
         LayoutInflater inflater=null;
@@ -375,13 +400,4 @@ public class SettingsActivity extends AppCompatActivity implements GoogleApiClie
         }
     }
 
-
-    public class WebsiteLoader extends Loader {
-        public WebsiteLoader(Context context) {
-            super(context);
-        }
-        public String load() {
-            return mWebsiteSpHelper.getWebsites();
-        }
-    }
 }

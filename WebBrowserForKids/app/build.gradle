@@ -3,10 +3,10 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-            keyAlias 'Chris Connolly'
-            keyPassword 'Ud@c!tyW3bF0rK!ds'
-            storeFile file('$rootdir/keystore.jks')
-            storePassword 'Ud@c!tyW3bF0rK!ds'
+            keyAlias "websiteforkids"
+            keyPassword "Ud@c!tyW3bF0rK!ds"
+            storeFile file("$rootDir/keystore.jks")
+            storePassword "Ud@c!tyW3bF0rK!ds"
         }
     }
     compileSdkVersion 25
